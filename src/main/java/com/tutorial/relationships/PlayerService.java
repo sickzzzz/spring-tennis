@@ -39,11 +39,11 @@ public class PlayerService {
     }
 
     public Player assignProfile(int id, int profileId ) {
-        Player player = playerRepository.getReferenceById(id);
-        PlayerProfile profile = playerProfileRepository.getReferenceById(profileId);
+        Player player = playerRepository.findById(id).get();
+        player.setPlayerProfile(playerProfileRepository.findById(profileId).get());
 
-        player.setPlayerProfile(profile);
-        return player;
+        return playerRepository.save(player);
+
     }
 
 }

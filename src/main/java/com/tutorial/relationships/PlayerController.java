@@ -13,27 +13,27 @@ public class PlayerController {
     @Autowired
     PlayerService playerService;
 
-    @GetMapping(name = "/players")
+    @GetMapping("/players")
     public List<Player> getAllPlayers() {
         return playerService.getAllPlayers();
     }
 
-    @GetMapping(name = "/players/{id}")
+    @GetMapping("/players/{id}")
     public Player getPlayer(@PathVariable int id){
         return playerService.getPlayer(id);
     }
 
-    @PostMapping(name = "/players")
+    @PostMapping("/players")
     public Player addPlayer(@RequestBody Player player) {
         return playerService.addPlayer(player);
     }
 
-    @DeleteMapping(name = "/players/{id}")
+    @DeleteMapping("/players/{id}")
     public void deletePlayer(@PathVariable int id) {
         playerService.deletePlayer(id);
     }
 
-    @PutMapping(name="/players/{id}/profile/{profileId}")
+    @PutMapping("/players/{id}/profile/{profileId}")
     public Player assignProfile(@PathVariable int id, @PathVariable int profileId) {
         return playerService.assignProfile(id, profileId);
     }
