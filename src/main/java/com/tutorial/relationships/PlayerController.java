@@ -13,6 +13,9 @@ public class PlayerController {
     @Autowired
     PlayerService playerService;
 
+    @Autowired
+    RegistrationService registrationService;
+
     @GetMapping("/players")
     public List<Player> getAllPlayers() {
         return playerService.getAllPlayers();
@@ -38,6 +41,16 @@ public class PlayerController {
         return playerService.assignProfile(id, profileId);
     }
 
+    @PutMapping("/players/{id}/registrations/{reg_id}")
+    public Player assignRegistration(@PathVariable int id, @PathVariable int reg_id) {
+        Registration registration = registrationService.getRegistration(reg_id);
+        return playerService.assignRegistration(id, registration);
+    }
 
+    @PutMapping("/players/{id}/remove_registrations/{reg_id}")
+    public Player removeRegistration(@PathVariable int id, @PathVariable int reg_id) {
+        Registration registration = registrationService.getRegistration(reg_id);
+        return playerService.removeRegistration(id, registration);
+    }
 
 }

@@ -1,5 +1,7 @@
 package com.tutorial.relationships;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -18,16 +20,14 @@ public class Player {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private PlayerProfile playerProfile;
+
+    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Registration> registrations = new ArrayList<>();
+
+
     public Player() {
 
     }
-
-    public Player(String name, PlayerProfile playerProfile) {
-        super();
-        this.name = name;
-        this.playerProfile = playerProfile;
-    }
-
     public int getId() {
         return id;
     }
@@ -52,6 +52,23 @@ public class Player {
         this.playerProfile = playerProfile;
     }
 
+    public List<Registration> getRegistrations() {
+        return registrations;
+    }
+
+    public void setRegistrations(List<Registration> registrations) {
+        this.registrations = registrations;
+    }
+
+    public void addRegistration(Registration registration) {
+        registrations.add(registration);
+        registration.setPlayer(this);
+    }
+
+    public void removeRegistration(Registration registration) {
+        registrations.remove(registration);
+        registration.setPlayer(null);
+    }
     @Override
     public String toString() {
         return "Player{" +

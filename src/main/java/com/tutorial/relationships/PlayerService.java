@@ -43,7 +43,19 @@ public class PlayerService {
         player.setPlayerProfile(playerProfileRepository.findById(profileId).get());
 
         return playerRepository.save(player);
-
     }
+
+    public Player assignRegistration(int id, Registration registration) {
+        Player player = playerRepository.findById(id).get();
+        player.addRegistration(registration);
+        return playerRepository.save(player);
+    }
+
+    public Player removeRegistration(int id, Registration registration) {
+        Player player = playerRepository.findById(id).get();
+        player.removeRegistration(registration);
+        return playerRepository.save(player);
+    }
+
 
 }
