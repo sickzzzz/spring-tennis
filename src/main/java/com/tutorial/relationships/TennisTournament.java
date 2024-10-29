@@ -1,6 +1,8 @@
 package com.tutorial.relationships;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
@@ -18,6 +20,7 @@ public class TennisTournament {
             joinColumns = @JoinColumn(name = "tournament_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
+    @JsonIgnoreProperties("tournamentList")
     private List<Category> categoryList = new ArrayList<>();
 
     public TennisTournament(){}
@@ -52,8 +55,13 @@ public class TennisTournament {
 
     public void addCategory(Category category){
         categoryList.add(category);
+        category.addTournament(this);
     }
 
+    public void removeCategory(Category category) {
+        categoryList.remove(category);
+        category.getTournamentList().remove(this);
+    }
 
 
 }

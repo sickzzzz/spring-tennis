@@ -40,4 +40,10 @@ public class TennisTournamentController {
         return tournamentService.addCategory(id, category);
     }
 
+    @PutMapping("/{id}/remove-categories/{cat_id}")
+    public TennisTournament removeCategory(@PathVariable int id, @PathVariable int cat_id) {
+        Category category = categoryService.getCategory(cat_id);
+        return tournamentService.removeCategory(id, category);
+    }
+
 }

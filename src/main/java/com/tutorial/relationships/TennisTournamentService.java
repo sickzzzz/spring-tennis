@@ -33,5 +33,11 @@ public class TennisTournamentService {
         return tournamentRepository.save(tournament);
     }
 
+    public TennisTournament removeCategory(int id, Category category) {
+        TennisTournament tournament = tournamentRepository.findById(id).get();
+        tournament.removeCategory(category);
+        return tournamentRepository.save(tournament);
+    }
+
 
 }
